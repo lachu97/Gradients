@@ -6,11 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -45,19 +47,39 @@ class MainActivity : ComponentActivity() {
                                     durationMillis = 1000,
                                     easing = FastOutSlowInEasing
                                 ),
-                                repeatMode = RepeatMode.Restart
+                                repeatMode = RepeatMode.Reverse
 
                             )
                         )
-                        val linear = Brush.linearGradient(listOf(Color.Cyan, Color.Blue, Color.Magenta),
-                        start = Offset.Zero,
-                            end = Offset(x= trananim1.value,y= trananim1.value)
-                            )
 
+                        val linear = Brush.linearGradient(
+                            listOf(Color.Cyan.copy(alpha = 0.3f), Color.Cyan.copy(alpha = 0.8f),Color.Cyan.copy(alpha = 0.3f)),
+                            start = Offset.Zero,
+                            end = Offset(x = trananim1.value, y = trananim1.value)
+                        )
+                        Spacer(
+                            modifier = Modifier
+                                .width(254.dp)
+                                .height(42.dp)
+                                .clip(RoundedCornerShape(15.dp))
+                                .background(linear)
+                            ,
+
+                            )
+                        val vertical = Brush.linearGradient(
+                            colors = listOf(
+                                Color.LightGray.copy(0.6f),
+                                Color.LightGray.copy(0.2f),
+                                Color.LightGray.copy(0.6f),
+                            ),
+                            start = Offset.Zero,
+                            end = Offset(x=trananim1.value,y=trananim1.value)
+                        )
+                        Spacer(modifier = Modifier.padding(5.dp))
                         Box(
                             modifier = Modifier
                                 .size(200.dp)
-                                .background(linear)
+                                .background(vertical)
                         )
 
                         Spacer(modifier = Modifier.size(2.dp))
@@ -94,17 +116,20 @@ class MainActivity : ComponentActivity() {
                                     durationMillis = 1000,
                                     easing = FastOutSlowInEasing
                                 ),
-                                repeatMode = RepeatMode.Reverse
+                                repeatMode = RepeatMode.Restart
 
                             )
                         )
                         val horizontal = Brush.horizontalGradient(
                             listOf(
                                 Color.Cyan.copy(
-                                    alpha = 0.6f
+                                    alpha = 0.3f
                                 ),
-                                Color.Blue.copy(
-                                    alpha = 0.9f
+                                Color.Cyan.copy(
+                                    alpha = 0.7f
+                                ),
+                                Color.Cyan.copy(
+                                    alpha = 0.3f
                                 )
                             ),
                             startX = Offset.Zero.x,
